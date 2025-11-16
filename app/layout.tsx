@@ -1,53 +1,57 @@
-import type { ReactNode } from "react";
 import type { Metadata } from "next";
-import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
+import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
-import "./globals.css";
-import { Toaster } from "react-hot-toast";
+import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import { Roboto } from "next/font/google";
+import AuthProvider from "@/components/AuthProvider/AuthProvider";
 
-const robotoFont = Roboto({
-  weight: ["400", "500", "700"],
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["400", "700"],
   variable: "--font-roboto",
   display: "swap",
-  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: "NoteHub",
-  description: "Manage your notes efficiently",
+  description:
+    "NoteHub is a simple and efficient application designed for managing personal notes",
   openGraph: {
-    title: "NoteHub — Smart Note Management",
-    description: "Organize, edit, and manage your notes efficiently with NoteHub.",
-    url: "https://notehub.goit.global/",
+    title: "NoteHub",
+    description:
+      "NoteHub is a simple and efficient application designed for managing personal notes",
+    url: `https://notehub.com/`,
+    siteName: "NoteHub",
     images: [
       {
-        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+        url: "https://i.ibb.co/hRmh19Gt/Note-Hub-green.png",
         width: 1200,
         height: 630,
-        alt: "NoteHub Open Graph Image",
+        alt: "NoteHub",
       },
     ],
+    type: "article",
   },
 };
 
 export default function RootLayout({
   children,
   modal,
-}: {
-  children: ReactNode;
-  modal: ReactNode;
-}) {
+}: Readonly<{
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}>) {
   return (
-    <html lang="en" className={robotoFont.variable}>
-      <body>
+    <html lang="en">
+      <body className={`${roboto.variable}`}>
         <TanStackProvider>
-          <Header />
-          {children}
-          {modal}
-          <Toaster position="top-right" reverseOrder={false} />
-          <Footer />
+          <AuthProvider>
+            <Header />
+            {children}
+            {modal}
+            <Footer />
+          </AuthProvider>
         </TanStackProvider>
       </body>
     </html>

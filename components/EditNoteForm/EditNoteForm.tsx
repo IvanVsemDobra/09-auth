@@ -1,4 +1,4 @@
-import { editNote } from "@/lib/api";
+import { editNote } from "@/lib/api/api";
 import { Note, UpdateNoteData } from "@/types/note";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
